@@ -3,6 +3,7 @@
 
 from datetime import datetime
 import os
+import time
 import torch
 from enum import Enum, unique
 from pathlib import Path
@@ -17,9 +18,14 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 但这样没必要，不如分目录。
 """
 
+# 这里的常量之后应当放到字典或者类里。
 __debug_dont_load_model__ = False
+__low_cpu_mem_usage__ = True
+__idleness_mode_threshold_time__ = 1.0
+__idleness_mode_threshold_count__ = 2
+__idleness_mode_sleep_time__ = 1.0
 
-__version__ = {'major': 0, 'minor': 0, 'build': 1, 'revision': 0}
+__version__ = {'major': 0, 'minor': 0, 'build': 2, 'revision': 0}
 def version() -> str:
 	return str(__version__['major']) + '.' + str(__version__['minor']) + '.' + str(__version__['build']) + '.' + str(__version__['revision'])
 
@@ -241,18 +247,31 @@ def chatapi_gptj_main(args: list = []) -> int:
 			cache_dir='./.cache',
 			resume_download=True,
 	#		torch_dtype=torch.float16,
-			low_cpu_mem_usage=True
+			low_cpu_mem_usage=__low_cpu_mem_usage__
 		)
 
 	print('[Info ' + nowtime() + ']: Loaded.')
 	print('[Info ' + nowtime() + ']: Running...')
 
 	status_values['status'] = Status.running
+
+	idleness_begin_time = datetime.now()
+	idleness_count = 0
+
 	while True:
 		if not check_flags(status_values = status_values):
 			break
 
-		check_requests(gptj_values = gptj_values, status_values = status_values)
+		if check_requests(gptj_values = gptj_values, status_values = status_values):
+			idleness_begin_time = datetime.now()
+			idleness_count = 0
+		else:
+			if idleness_count < __idleness_mode_threshold_count__:
+				idleness_count += 1
+		
+		# Save cpu time.
+		if ((datetime.now() - idleness_begin_time).total_seconds > __idleness_mode_threshold_time__) and (idleness_count >= __idleness_mode_threshold_count__):
+			time.sleep(__idleness_mode_sleep_time__)
 	
 	return 0
 
