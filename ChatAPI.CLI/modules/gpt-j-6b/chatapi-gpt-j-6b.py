@@ -244,6 +244,7 @@ def chatapi_gptj_main(args: list = []) -> int:
 			low_cpu_mem_usage=True
 		)
 
+	print('[Info ' + nowtime() + ']: Loaded.')
 	print('[Info ' + nowtime() + ']: Running...')
 
 	status_values['status'] = Status.running
