@@ -270,7 +270,7 @@ def chatapi_gptj_main(args: list = []) -> int:
 				idleness_count += 1
 		
 		# Save cpu time.
-		if ((datetime.now() - idleness_begin_time).total_seconds > __idleness_mode_threshold_time__) and (idleness_count >= __idleness_mode_threshold_count__):
+		if ((datetime.now() - idleness_begin_time).total_seconds() > __idleness_mode_threshold_time__) and (idleness_count >= __idleness_mode_threshold_count__):
 			time.sleep(__idleness_mode_sleep_time__)
 	
 	return 0

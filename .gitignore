@@ -573,6 +573,9 @@ FodyWeavers.xsd
 
 # Private
 ChatAPI.CLI/modules/gpt-j-6b/venv
+ChatAPI.CLI/modules/gpt-j-6b/flags/
+ChatAPI.CLI/modules/gpt-j-6b/requests/
+ChatAPI.CLI/modules/gpt-j-6b/.cache/
 ChatAPI.CLI/test.py
 CodeAnalysisApp/
 CoreBot/

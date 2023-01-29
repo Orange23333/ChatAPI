@@ -11,7 +11,7 @@ API S/C for chating with AIs.
 Files:
 ```
 ChatAPI.CLI/modules/gpt-j-6b/chatapi-gpt-j-6b.py
-ChatAPI.CLI/Server/GPTJWrapper.cs #Haven't finished.
+ChatAPI.CLI/Server/GPTJWrapper.cs #WIP
 ```
 
 #### chatapi-gpt-j-6b.py
