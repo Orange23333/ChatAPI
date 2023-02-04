@@ -572,15 +572,10 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudio
 
 # Private
-ChatAPI.CLI/modules/gpt-j-6b/venv
-ChatAPI.CLI/modules/gpt-j-6b/flags/
-ChatAPI.CLI/modules/gpt-j-6b/requests/
-ChatAPI.CLI/modules/gpt-j-6b/.cache/
-ChatAPI.CLI/test.py
-CodeAnalysisApp/
-CoreBot/
-CoreWebAPI/
-EchoBot/
-GrpcService/
-WcfService/
-WorkflowConsoleApplication/
+Tests/CodeAnalysisApp/
+Tests/CoreBot/
+Tests/CoreWebAPI/
+Tests/EchoBot/
+Tests/GrpcService/
+Tests/WcfService/
+Tests/WorkflowConsoleApplication/
